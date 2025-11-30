@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanjib Dev | Tech & Tales</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="A curated space for technology, travel adventures, and personal reflections.">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Sanjib<span style="color:var(--accent)">.Dev</span></a>
+            <ul class="nav-links">
+                <li><a href="https://sanjib-d.github.io/Portfolio/" target="_blank">Portfolio</a></li>
+                <li><a href="#" id="themeToggle"><i class="fas fa-sun"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Tech, Travel & <br><span style="color:var(--accent)">Perspectives</span></h1>
+            <p>Exploring the code behind the web and the world beyond the screen.</p>
+            
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search articles...">
+            </div>
+
+            <div class="filter-container">
+                <button class="filter-btn active" data-category="all">All Stories</button>
+                <button class="filter-btn" data-category="Tech"><i class="fas fa-code"></i> Tech</button>
+                <button class="filter-btn" data-category="Travel"><i class="fas fa-plane"></i> Travel</button>
+                <button class="filter-btn" data-category="Personal"><i class="fas fa-user"></i> Personal</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <div id="loading" style="text-align:center; padding: 40px; color:var(--text-secondary);">
+                <i class="fas fa-circle-notch fa-spin"></i> Loading repository...
+            </div>
+            <div id="blog-grid" class="projects-grid"></div>
+            <div id="no-results" style="display:none; text-align:center; padding:40px;">
+                <p>No stories found matching your search.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align:center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px;">
+        <p style="color: var(--text-secondary)">&copy; 2025 Sanjib Dev. Built with Firebase.</p>
+        <a href="admin.html" style="color: var(--text-secondary); font-size: 0.8rem; margin-top:10px; display:inline-block;">Admin Portal</a>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script type="module" src="js/blog.js"></script>
+</body>
+</html>

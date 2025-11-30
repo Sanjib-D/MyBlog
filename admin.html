@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hidden { display: none !important; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-secondary); }
+        .form-control { width: 100%; padding: 12px; background: var(--bg-body); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; transition: 0.3s; }
+        .form-control:focus { border-color: var(--accent); outline: none; }
+        
+        /* Dashboard Header */
+        .dash-header { display: flex; gap: 15px; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        
+        /* Post List Items */
+        .post-item {
+            background: rgba(255,255,255,0.03); 
+            padding: 15px; 
+            margin-bottom: 10px; 
+            border-radius: 8px; 
+            border: 1px solid transparent;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .post-item:hover { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
+
+        /* Message Cards */
+        .msg-card { background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
+        .msg-header { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+        
+        /* Buttons */
+        .btn-icon { background: none; border: none; cursor: pointer; color: var(--text-secondary); padding: 5px; font-size: 1.1rem; }
+        .btn-icon:hover { color: var(--accent); }
+        .btn-delete:hover { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">Admin<span style="color:var(--accent)">.Panel</span></a>
+            
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <a href="index.html" class="btn btn-outline btn-sm">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                
+                <button id="logoutBtn" class="btn btn-outline hidden" style="border-color: #ef4444; color: #ef4444;">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 40px 20px;">
+        
+        <div id="login-section" style="max-width: 400px; margin: 50px auto;">
+            <div class="project-card" style="padding: 30px;">
+                <h2 style="text-align: center; margin-bottom: 20px;">Access Control</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Authenticate</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="dashboard-section" class="hidden">
+            
+            <div class="dash-header">
+                <button id="tab-blogs" class="btn btn-primary" onclick="window.switchTab('blogs')">
+                    <i class="fas fa-pen-nib"></i> Manage Blogs
+                </button>
+                <button id="tab-messages" class="btn btn-outline" onclick="window.switchTab('messages')">
+                    <i class="fas fa-envelope"></i> Inbox
+                </button>
+            </div>
+
+            <div id="view-blogs" class="admin-layout">
+                
+                <aside class="sidebar" style="height: fit-content;">
+                    <h3 id="formTitle" style="margin-bottom: 20px; color: var(--accent);">Create New Post</h3>
+                    <form id="blogForm">
+                        <input type="hidden" id="editPostId">
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-file-code"></i> Import HTML (Optional)</label>
+                            <input type="file" id="htmlFileInput" accept=".html, .txt" class="form-control" style="font-size: 0.8rem;">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" id="postTitle" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="postCategory" class="form-control">
+                                <option value="Tech">Tech</option>
+                                <option value="Travel">Travel</option>
+                                <option value="Personal">Personal</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Image URL</label>
+                            <input type="text" id="postImage" class="form-control" required placeholder="https://...">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Content (HTML)</label>
+                            <textarea id="postContent" class="form-control" rows="8" required></textarea>
+                        </div>
+
+                        <div style="display:flex; gap:10px;">
+                            <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100%">Publish Post</button>
+                            <button type="button" id="cancelEditBtn" class="btn btn-outline hidden">Cancel</button>
+                        </div>
+                    </form>
+                </aside>
+
+                <main class="admin-main">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                        <h3>Existing Posts</h3>
+                        <div style="position: relative;">
+                            <i class="fas fa-search" style="position: absolute; left: 10px; top: 10px; color: gray;"></i>
+                            <input type="text" id="adminSearch" class="form-control" placeholder="Search posts..." style="padding-left: 35px; width: 250px;">
+                        </div>
+                    </div>
+                    
+                    <div id="admin-post-list">
+                        </div>
+                </main>
+            </div>
+
+            <div id="view-messages" class="hidden">
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                        <h3>Contact Messages</h3>
+                        <button onclick="loadMessages()" class="btn btn-outline btn-sm"><i class="fas fa-sync"></i> Refresh</button>
+                    </div>
+                    <div id="messages-list">
+                        </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="js/admin.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+</html>

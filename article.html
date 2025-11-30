@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Article | Sanjib Dev</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="reading-progress-container">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Sanjib<span style="color:var(--accent)">.Dev</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.9rem;">Back</a></li>
+                <li><a href="#" id="themeToggle"><i class="fas fa-sun"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="loading" style="text-align:center; margin-top:100px; color:var(--text-secondary);">
+        <i class="fas fa-spinner fa-spin fa-2x"></i><br><br>Loading Story...
+    </div>
+
+    <article id="article-view" class="article-container hidden" style="display:none;">
+        <header class="article-header">
+            <span id="art-category" class="card-badge" style="position:relative; top:0; right:0; display:inline-block; margin-bottom:15px;"></span>
+            <h1 id="art-title"></h1>
+            <div class="card-meta" style="justify-content:center; display:flex; gap:15px;">
+                <span id="art-date"></span>
+            </div>
+        </header>
+
+        <img id="art-image" class="article-cover" src="" alt="Cover Image">
+
+        <div id="art-body" class="article-content"></div>
+
+        <div class="share-section">
+            <p style="color:var(--text-secondary);">Enjoyed this read? Share it.</p>
+            <div class="share-btns">
+                <a id="share-twitter" href="#" target="_blank" class="share-icon"><i class="fab fa-twitter"></i></a>
+                <a id="share-linkedin" href="#" target="_blank" class="share-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a id="share-copy" href="#" class="share-icon"><i class="fas fa-link"></i></a>
+            </div>
+        </div>
+    </article>
+
+    <script src="js/theme.js"></script>
+    <script type="module" src="js/article.js"></script>
+</body>
+</html>
